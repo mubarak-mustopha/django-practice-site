@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>All products</title>
+{% endblock title %}
+
+{% block style %}
+    <style> 
+        .container {
+            width: 900px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prod-container {
+            padding: 10px;
+            border-bottom: gold;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        p {
+            width: 500px;
+        }
+    </style>
+{% endblock style %}
+
+
+{% block content %}
+    <div class="container">
+        {% for prod in products %}
+            <div class="prod-container">
+                <div>
+                    <a href="{% url 'product' prod.id %}">
+                        <img src="{{prod.image_url}}" alt="">
+                    </a>    
+                </div>
+                <p>{{prod.price}}</p>
+                <p>{{prod.title}}</p>
+                <p>{{prod.description}}</p>
+            </div>    
+        {% endfor %}
+    </div>
+{% endblock content %}

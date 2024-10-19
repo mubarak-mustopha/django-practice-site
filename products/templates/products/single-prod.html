@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .img-x img{
+            width: 50px;
+            height: 50px;
+        }
+        p {
+            width: 500px;
+        }
+    </style>
+{% endblock style %}
+
+{% block content %}
+    <div>
+        <div>
+            <img src="{{product.image_url}}" alt="">
+        </div>
+        <p>{{product.price}}</p>
+        <p>{{product.title}}</p>
+        <p>{{product.description}}</p>
+    </div>
+
+    <div class="img-x">
+        {% for prod in recently_viewed %}
+            <img src="{{prod.image_url}}" alt="">
+        {% endfor %}
+    </div>
+
+{% endblock content %}
