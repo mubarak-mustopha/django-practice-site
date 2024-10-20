@@ -9,6 +9,10 @@ body {
     font-family: sans-serif;
 }
 
+button {
+    cursor: pointer;
+}
+
 .prod-container {
     width: 900px;
 
@@ -21,6 +25,20 @@ body {
     width: 30%;
     padding: 10px;
     border-bottom: gold;
+}
+
+.prod-item .btns {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px
+}
+
+.prod-item .btns > a {
+    display: block;
+    color: white;
+    background: #B2D6FF;
+    padding: 5px;
+    border-radius: 3px;
 }
 
 img {
@@ -49,3 +67,4 @@ a, a:visited {
     font-size: smaller;
     font-weight: bold;
 }
+

@@ -23,6 +23,10 @@
             <img src="{{product.image_url}}" alt="">
         </div>
         <p>{{product.price}}</p>
+        <button value="{{product.id}}"
+                id="add-cart">
+            Add to cart
+        </button>
         <p>{{product.title}}</p>
         <p>{{product.description}}</p>
     </div>
@@ -32,5 +36,30 @@
             <img src="{{prod.image_url}}" alt="">
         {% endfor %}
     </div>
+
+    <script>
+        $(document).on("click", "#add-cart", function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart_add" %}',
+                data: {
+                    product_id: $('#add-cart').val(),
+                    csrfmiddlewaretoken: '{{csrf_token}}',
+                    action: 'post'
+                },
+
+                success: function(json){
+                    console.log(json);
+                },
+
+                error: function(xhr, errmsg, err){
+                    
+                }
+            });
+
+
+        })
+    </script>
 
 {% endblock content %}
