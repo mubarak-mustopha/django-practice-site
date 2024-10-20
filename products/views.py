@@ -9,6 +9,9 @@ from .models import Product
 
 
 def load_products(request):
+    if Product.objects.exists():
+        return redirect(reverse("product_list"))
+
     prod_endpoint = "https://fakestoreapi.com/products/"
     resp = requests.get(prod_endpoint)
     products = []
@@ -35,13 +38,15 @@ def product(request, pk):
 
     if "recently_viewed" in request.session:
         recently_viewed = request.session["recently_viewed"]
-        if product in recently_viewed:
+        if product.id in recently_viewed:
             recently_viewed.remove(product.id)
         context["recently_viewed"] = sorted(
             Product.objects.filter(id__in=recently_viewed),
-            key=lambda x: recently_viewed.index(x.id),
+            key=lambda prod: recently_viewed.index(prod.id),
         )
         recently_viewed.insert(0, product.id)
+        if len(recently_viewed) > 5:
+            recently_viewed.pop()
     else:
         request.session["recently_viewed"] = [product.id]
 
