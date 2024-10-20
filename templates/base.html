@@ -18,7 +18,9 @@
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'product_list' %}">Products</a></li>
-            <li><a href="">Cart</a> <span>0</span></li>
+            <li><a href="{% url 'cart_summary' %}">Cart</a> 
+                <span class="cart-count">0</span>
+            </li>
         </ul>
     </nav>
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # locals
     "base.apps.BaseConfig",
     "products.apps.ProductsConfig",
+    "carts.apps.CartsConfig",
 ]
 
 MIDDLEWARE = [
