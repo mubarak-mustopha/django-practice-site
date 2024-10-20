@@ -5,36 +5,13 @@
 {% endblock title %}
 
 {% block style %}
-    <style> 
-        .container {
-            width: 900px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .prod-container {
-            padding: 10px;
-            border-bottom: gold;
-        }
-
-        img {
-            width: 100px;
-            height: 100px;
-        }
-
-        p {
-            width: 500px;
-        }
-    </style>
 {% endblock style %}
 
 
 {% block content %}
-    <div class="container">
+    <div class="prod-container">
         {% for prod in products %}
-            <div class="prod-container">
+            <div class="prod-item">
                 <div>
                     <a href="{% url 'product' prod.id %}">
                         <img src="{{prod.image_url}}" alt="">
