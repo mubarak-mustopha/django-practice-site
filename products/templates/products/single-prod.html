@@ -23,10 +23,29 @@
             <img src="{{product.image_url}}" alt="">
         </div>
         <p>{{product.price}}</p>
+
+        {% if not product in cart %}
         <button value="{{product.id}}"
                 id="add-cart">
             Add to cart
         </button>
+        {% else %}
+        <button value="{{product.id}}"
+                id="">
+            Remove from cart
+        </button>
+        {% endif %}
+
+        <div class="qty">
+            <label for="">Quantity:</label>
+            <select name="" id="cart-qty">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+
         <p>{{product.title}}</p>
         <p>{{product.description}}</p>
     </div>
@@ -45,12 +64,14 @@
                 url: '{% url "cart_add" %}',
                 data: {
                     product_id: $('#add-cart').val(),
+                    product_qty: $('#cart-qty option:selected').val(),
                     csrfmiddlewaretoken: '{{csrf_token}}',
                     action: 'post'
                 },
 
                 success: function(json){
                     console.log(json);
+                    document.querySelector(".cart-count").textContent = json.qty;
                 },
 
                 error: function(xhr, errmsg, err){

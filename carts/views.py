@@ -7,23 +7,30 @@ from .carts import Cart
 
 # Create your views here.
 def cart_summary(request):
-    return render(request, "carts/cart_summary.html", {})
+    cart = Cart(request)
+    cart_prods = list(iter(cart))
+    quantities = cart.get_quants()
+
+    return render(
+        request,
+        "carts/cart_summary.html",
+        {"cart_prods": cart_prods, "quantities": quantities},
+    )
 
 
 def cart_add(request):
     cart = Cart(request)
     data = request.POST
-    print(f"----POST DATA-----\n{request.POST}")
-    print(f"----REQUEST METHOD-----\n{request.method}")
     if data.get("action") == "post":
         product_id = int(data.get("product_id"))
+        product_qty = int(data.get("product_qty"))
         product = get_object_or_404(Product, id=product_id)
 
         # save to session
-        cart.add(product)
+        cart.add(product, product_qty)
 
         # return response
-        return JsonResponse({"Product Name": product.name})
+        return JsonResponse({"qty": len(cart)})
 
 
 def cart_delete(request):

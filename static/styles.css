@@ -47,8 +47,13 @@ img {
 }
 
 nav {
+    color: white;
+    background-color: #00b4d8;
     padding: 30px;
     width: 100%;
+
+    position: sticky;
+    top: 0;
 }
 
 nav > ul {
@@ -58,9 +63,18 @@ nav > ul {
     align-items: center;
 }
 
+
 a, a:visited {
     text-decoration: none;
     color: blue;
+}
+
+nav a, nav a:visited {
+    color: white;
+}
+
+nav a:hover {
+    color: blue
 }
 
 .cart-count {

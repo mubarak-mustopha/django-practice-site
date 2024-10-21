@@ -10,5 +10,67 @@
 
 {% block content %}
     <h1>Shopping Cart</h1>
+    <div class="prod-container">
+        {% if not cart_prods %}
+            <p>No items in your cart</p>
+        {% else %}
+            {% for prod in cart_prods %}
+                <div class="prod-item">
+                    <div>
+                        <a href="{% url 'product' prod.id %}">
+                            <img src="{{prod.image_url}}" alt="">
+                        </a>    
+                    </div>
+                    <p>{{prod.price}}</p>
+                    
+                    <div class="qty">
+                        <label for="">Quantity:</label>
+                        <select name="" id="cart-qty">
+                            {% for key,value in quantities.items %}
+                                {% if key == prod.id|slugify %}
+                                <option value="{{value}}" selected>{{value}}</option>
+                                {% endif %}
+                            {% endfor %}
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
 
+                    <button value="{{prod.id}}"
+                            id="add-cart">
+                        Add to cart
+                    </button>
+                </div>    
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).on("click", "#add-cart", function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart_add" %}',
+                data: {
+                    product_id: $('#add-cart').val(),
+                    product_qty: $('#cart-qty option:selected').text(),
+                    csrfmiddlewaretoken: '{{csrf_token}}',
+                    action: 'post'
+                },
+
+                success: function(json){
+                    console.log(json);
+                    document.querySelector(".cart-count").textContent = json.qty;
+                },
+
+                error: function(xhr, errmsg, err){
+                    
+                }
+            });
+
+
+        })
+    </script>
 {% endblock content %}
